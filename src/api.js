@@ -9,6 +9,11 @@ export const getArticles = async () => {
   return data.articles;
 };
 
+export const getArticleById = async (article_id) => {
+  const {data} = await api.get(`/articles/${article_id}`);
+  return data.article;
+};
+
 // export const getUsers = () => {
 //   console.log("getUsers Called");
 //   return api.get("/users").then(({data: {users}}) => {
