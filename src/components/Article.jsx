@@ -2,6 +2,7 @@ import {useParams} from "react-router";
 import {getArticleById} from "../api";
 import {ClipLoader} from "react-spinners";
 import {useApiRequest} from "../hooks/useApiRequest";
+import { CommentsByArticle } from "./CommentsByArticle";
 
 export const Article = () => {
   const {article_id} = useParams();
@@ -22,23 +23,29 @@ export const Article = () => {
   if (error) return <p className="error-msg">{error}</p>;
 
   return (
-    <article className="article-container">
-      <h1>{article.title}</h1>
-      <p className="article-meta">
-        By <strong>{article.author}</strong> |{" "}
-        {new Date(article.created_at).toLocaleDateString()}
-      </p>
-      <img
-        src={article.article_img_url}
-        alt={article.title}
-        className="article-image"
-      />
-      <p className="article-body">{article.body}</p>
-      <p className="article-info">
-        Topic: {article.topic} | Votes: {article.votes} | Comments:{" "}
-        {article.comment_count}
-      </p>
-    </article>
+    <>
+      <article className="article-container">
+        <h1>{article.title}</h1>
+        <p className="article-meta">
+          By <strong>{article.author}</strong> |{" "}
+          {new Date(article.created_at).toLocaleDateString()}
+        </p>
+        <img
+          src={article.article_img_url}
+          alt={article.title}
+          className="article-image"
+        />
+        <p className="article-body">{article.body}</p>
+        <p className="article-info">
+          Topic: {article.topic} | Votes: {article.votes} | Comments:{" "}
+          {article.comment_count}
+        </p>
+      </article>
+      <aside>
+        <CommentsByArticle />
+      </aside>
+    </>
   );
 };
+
 
