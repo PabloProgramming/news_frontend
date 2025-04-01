@@ -1,26 +1,16 @@
-import {useEffect, useState} from "react";
 import {useParams} from "react-router";
-import { getArticleById } from "../api";
-import { ClipLoader } from "react-spinners";
+import {getArticleById} from "../api";
+import {ClipLoader} from "react-spinners";
+import {useApiRequest} from "../hooks/useApiRequest";
 
 export const Article = () => {
   const {article_id} = useParams();
-  const [article, setArticle] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetArticleById = async () => {
-      try {
-        const articleData = await getArticleById(article_id);
-          setArticle(articleData);
-          setLoading(false)
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    fetArticleById();
-  }, [article_id]);
+  const {
+    data: article,
+    loading,
+    error,
+  } = useApiRequest(getArticleById, article_id);
 
   if (loading)
     return (
@@ -29,7 +19,7 @@ export const Article = () => {
       </div>
     );
 
-    if (error) return <p className="error-msg">{error}</p>;
+  if (error) return <p className="error-msg">{error}</p>;
 
   return (
     <article className="article-container">

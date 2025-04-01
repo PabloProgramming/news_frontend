@@ -1,27 +1,10 @@
-import {useEffect, useState} from "react";
 import {ArticleCard} from "./ArticleCard";
-import {getArticles} from "../api";
 import {ClipLoader} from "react-spinners";
+import {useApiRequest} from "../hooks/useApiRequest";
+import {getArticles} from "../api";
 
 export const Articles = () => {
-  const [articles, setArticles] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const articlesData = await getArticles();
-        setArticles(articlesData);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-        setError(err.message);
-      }
-    };
-
-    fetchArticles();
-  }, []);
+  const {data: articles, loading, error} = useApiRequest(getArticles);
 
   if (loading)
     return (
