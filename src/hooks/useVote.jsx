@@ -5,10 +5,9 @@ export const useVote = (initialVotes) => {
     const [voteChanged, setVoteChanged] = useState(false);
 
     const handleVote = (type) => {
-        let newVotes = votes;
-        if (type === "upvote") setVotes(votes + 1);
-        if (type === "downvote") setVotes(votes - 1);
-        setVotes(newVotes)
+         setVotes((prevVotes) => 
+            type === "upvote" ? prevVotes + 1 : prevVotes - 1
+        );
         setVoteChanged(true);
         setTimeout(() => setVoteChanged(false), 500);
     };
