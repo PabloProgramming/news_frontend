@@ -14,6 +14,11 @@ export const getArticleById = async (article_id) => {
   return data.article;
 };
 
+export const getCommentsByArticleId = async (article_id) => {
+  const {data} = await api.get(`/articles/${article_id}/comments`);
+  return data.comments;
+};
+
 // export const getUsers = () => {
 //   console.log("getUsers Called");
 //   return api.get("/users").then(({data: {users}}) => {
