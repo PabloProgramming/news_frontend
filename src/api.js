@@ -21,8 +21,12 @@ export const getCommentsByArticleId = async (article_id) => {
 
 export const patchArticleVotesById = async (inc_votes, article_id) => {
   const { data } = await api.patch(`/articles/${article_id}`, { inc_votes });
-  console.log(data)
   return data.updatedArticle;
+}
+
+export const postCommentByArticleId = async (article_id, username, body) => {
+  const { data } = await api.post(`/articles/${article_id}/comments`, { username, body });
+  return data.newComment;
 }
 
 // export const getUsers = () => {
@@ -79,4 +83,5 @@ export const patchArticleVotesById = async (inc_votes, article_id) => {
 //     return item;
 //   });
 // };
+
 

@@ -205,7 +205,6 @@ li:hover {
   transition: color 0.3s ease, font-weight 0.3s ease;
 }
 
-
 .vote-button-wrapper {
   margin-left: 1rem;
 }
@@ -297,6 +296,70 @@ li:hover {
 .vote-btn-up:hover {
   color: #2e8b57;
   font-weight: bolder;
+}
+.comment-input,
+.comment-textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #333;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  outline: none;
+  max-width: 95%;
+}
+
+.comment-input:focus,
+.comment-textarea:focus {
+  border-color: #646cff;
+  box-shadow: 0 0 5px rgba(100, 108, 255, 0.5);
+}
+
+.comment-form {
+  border: 2px solid #e0e0e0;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.comment-textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.comment-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.comment-btn {
+  background-color: #646cff;
+  color: white;
+  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.comment-btn:hover {
+  background-color: #535bf2;
+}
+
+.comment-btn:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+.error-msg {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
 }
 
 /* .comment-link {
