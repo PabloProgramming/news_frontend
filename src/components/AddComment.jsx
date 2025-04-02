@@ -1,9 +1,12 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {postCommentByArticleId} from "../api";
 import {ClipLoader} from "react-spinners";
+import { UserContext } from "../contexts/UserContex";
 
-export const AddComment = ({article_id, addNewComment, setCommentCount}) => {
-  const [username, setUsername] = useState("");
+export const AddComment = ({ article_id, addNewComment, setCommentCount }) => {
+    
+    const { user } = useContext(UserContext)
+    
   const [newComment, setNewComment] = useState("");
   const [isPosting, setIsPosting] = useState(false);
   const [error, setError] = useState(null);
@@ -16,7 +19,7 @@ export const AddComment = ({article_id, addNewComment, setCommentCount}) => {
     try {
       const newPostedComment = await postCommentByArticleId(
         article_id,
-        username,
+        user.username,
         newComment
       );
 
@@ -24,7 +27,6 @@ export const AddComment = ({article_id, addNewComment, setCommentCount}) => {
       setCommentCount((prevCount) => prevCount + 1);
 
       setNewComment("");
-      setUsername("");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -40,13 +42,6 @@ export const AddComment = ({article_id, addNewComment, setCommentCount}) => {
         <h3>Add a Comment</h3>
       </div>
       <div className="comment-body">
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Your username"
-          className="comment-input"
-        />
         <textarea
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
