@@ -2,7 +2,10 @@ import {useParams} from "react-router";
 import {getArticleById} from "../api";
 import {ClipLoader} from "react-spinners";
 import {useApiRequest} from "../hooks/useApiRequest";
-import { CommentsByArticle } from "./CommentsByArticle";
+import {CommentsByArticle} from "./CommentsByArticle";
+import {useVote} from "../hooks/useVote";
+import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export const Article = () => {
   const {article_id} = useParams();
@@ -12,6 +15,11 @@ export const Article = () => {
     loading,
     error,
   } = useApiRequest(getArticleById, article_id);
+
+  const {votes, voteChanged, handleVote} = useVote(
+    article?.votes ?? 0,
+    article_id
+  );
 
   if (loading)
     return (
@@ -26,8 +34,9 @@ export const Article = () => {
     <>
       <article className="article-container">
         <h1>{article.title}</h1>
+        <p className="article-topic">Topic: {article.topic}</p>
         <p className="article-meta">
-          By <strong>{article.author}</strong> |{" "}
+          By <strong>{article.author}</strong> |
           {new Date(article.created_at).toLocaleDateString()}
         </p>
         <img
@@ -36,16 +45,33 @@ export const Article = () => {
           className="article-image"
         />
         <p className="article-body">{article.body}</p>
-        <p className="article-info">
-          Topic: {article.topic} | Votes: {article.votes} | Comments:{" "}
-          {article.comment_count}
-        </p>
+        <div className="artilce-footer">
+          <div className="vote-button-wrapper">
+            <button
+              onClick={() => handleVote("upvote")}
+              className="vote-btn-up">
+              <FontAwesomeIcon icon={faThumbsUp} />
+            </button>
+          </div>
+          <span className={`article-votes ${voteChanged ? "changed" : ""}`}>
+            Votes: {votes}
+          </span>
+          <span className="article-comments">
+            Comments: {article.comment_count}
+          </span>
+        </div>
       </article>
-      <aside>
-        <CommentsByArticle />
-      </aside>
+      {article?.comment_count === 0 ? (
+        <div className="error-container">
+          <h2 className="error-title">404 - No Comments Found</h2>
+          <p className="error-msg">This article does not have any comments.</p>
+        </div>
+      ) : (
+        <aside>
+          <CommentsByArticle />
+        </aside>
+      )}
     </>
   );
 };
-
 
