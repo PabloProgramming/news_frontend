@@ -100,6 +100,17 @@ li:hover {
   cursor: pointer;
 }
 
+.error-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.error-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff4c4c;
+}
+
 .error-msg {
   color: #d32f2f;
   background-color: #ffebee;
@@ -132,6 +143,13 @@ li:hover {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
+.article-topic {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
 .article-meta {
   font-size: 0.9rem;
   color: #666;
@@ -156,6 +174,40 @@ li:hover {
   font-size: 0.9rem;
   color: #555;
   font-style: italic;
+}
+
+.artilce-footer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: first baseline;
+  width: 100%;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.article-votes {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+.article-comments {
+  font-size: 1rem;
+  color: #777;
+  text-align: right;
+}
+
+.article-votes.changed {
+  color: #646cff;
+  font-weight: bolder;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+
+.vote-button-wrapper {
+  margin-left: 1rem;
 }
 
 .comments-list {
@@ -222,7 +274,7 @@ li:hover {
 
 .comment-votes.changed {
   color: #646cff;
-  font-weight: bolder; 
+  font-weight: bolder;
   transition: color 0.3s ease, font-weight 0.3s ease;
 }
 

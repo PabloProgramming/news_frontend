@@ -1,6 +1,6 @@
 import {Link} from "react-router";
 
-export const ArticleCard = ({article}) => {
+export const ArticleCard = ({ article }) => {
   return (
     <li>
       <Link to={`/articles/${article.article_id}`}>

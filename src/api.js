@@ -5,8 +5,8 @@ const api = axios.create({
 });
 
 export const getArticles = async () => {
-  const {data} = await api.get("/articles");
-  return data.articles;
+    const { data } = await api.get("/articles");
+    return data.articles;
 };
 
 export const getArticleById = async (article_id) => {
@@ -18,6 +18,12 @@ export const getCommentsByArticleId = async (article_id) => {
   const {data} = await api.get(`/articles/${article_id}/comments`);
   return data.comments;
 };
+
+export const patchArticleVotesById = async (inc_votes, article_id) => {
+  const { data } = await api.patch(`/articles/${article_id}`, { inc_votes });
+  console.log(data)
+  return data.updatedArticle;
+}
 
 // export const getUsers = () => {
 //   console.log("getUsers Called");

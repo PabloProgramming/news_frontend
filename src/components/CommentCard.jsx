@@ -1,7 +1,7 @@
 import {Link} from "react-router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
-import {faThumbsDown} from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import {faThumbsDown} from "@fortawesome/free-regular-svg-icons";
 import { useVote } from "../hooks/useVote";
 
 export const CommentCard = ({comment}) => {
@@ -33,6 +33,8 @@ export const CommentCard = ({comment}) => {
     </li>
   );
 };
+
+
 
 
 
