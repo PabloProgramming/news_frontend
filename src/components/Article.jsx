@@ -6,6 +6,7 @@ import {CommentsByArticle} from "./CommentsByArticle";
 import {useVote} from "../hooks/useVote";
 import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useEffect, useState} from "react";
 
 export const Article = () => {
   const {article_id} = useParams();
@@ -15,6 +16,14 @@ export const Article = () => {
     loading,
     error,
   } = useApiRequest(getArticleById, article_id);
+
+  const [commentCount, setCommentCount] = useState(article?.comment_count);
+
+  useEffect(() => {
+    if (article) {
+      setCommentCount(article.comment_count);
+    }
+  }, [article]);
 
   const {votes, voteChanged, handleVote} = useVote(
     article?.votes ?? 0,
@@ -36,7 +45,7 @@ export const Article = () => {
         <h1>{article.title}</h1>
         <p className="article-topic">Topic: {article.topic}</p>
         <p className="article-meta">
-          By <strong>{article.author}</strong> |
+          By <strong>{article.author}</strong> |{" "}
           {new Date(article.created_at).toLocaleDateString()}
         </p>
         <img
@@ -56,21 +65,13 @@ export const Article = () => {
           <span className={`article-votes ${voteChanged ? "changed" : ""}`}>
             Votes: {votes}
           </span>
-          <span className="article-comments">
-            Comments: {article.comment_count}
-          </span>
+          <span className="article-comments">Comments: {commentCount}</span>
         </div>
       </article>
-      {article?.comment_count === 0 ? (
-        <div className="error-container">
-          <h2 className="error-title">404 - No Comments Found</h2>
-          <p className="error-msg">This article does not have any comments.</p>
-        </div>
-      ) : (
-        <aside>
-          <CommentsByArticle />
-        </aside>
-      )}
+      <CommentsByArticle
+        article_id={article_id}
+        setCommentCount={setCommentCount}
+      />
     </>
   );
 };

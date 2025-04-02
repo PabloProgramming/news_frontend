@@ -19,7 +19,7 @@ export const useApiRequest = (apiRequest, ...args) => {
         fetchApiRequestData();
     }, [apiRequest,...args]);
     
-    return {data, loading, error}
+    return {data, loading, error, setData}
 
 
 
