@@ -13,6 +13,10 @@ header {
   margin-bottom: 2rem;
 }
 
+#header-title {
+  font-size: 4rem;
+}
+
 h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -42,6 +46,28 @@ nav p:hover {
 nav p.react:hover {
   color: #61dafb;
   transform: translateY(-2px);
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #646cff;
+}
+
+.user-info p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
 }
 
 ul {
