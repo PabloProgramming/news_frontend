@@ -164,6 +164,55 @@ li:hover {
   padding-left: 1rem;
 }
 
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.sort-controls select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sort-controls select:focus {
+  border-color: #646cff;
+  outline: none;
+}
+
+.sort-controls button {
+  padding: 8px 15px;
+  font-size: 14px;
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sort-controls button:hover {
+  background-color: #646cff;
+}
+
+.sort-controls button:focus {
+  outline: none;
+}
+
+
+@media (max-width: 768px) {
+  .sort-controls {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
 .article-container {
   max-width: 800px;
   margin: 2rem auto;
@@ -307,10 +356,9 @@ li:hover {
   transition: color 0.3s ease, font-weight 0.3s ease;
 }
 
-/* Default unfilled button state (light grey) */
 .vote-btn-up,
 .vote-btn-down {
-  color: #ccc; /* Light grey */
+  color: #ccc;
   background-color: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -424,15 +472,4 @@ li:hover {
   font-size: 0.9rem;
   margin-top: 0.5rem;
 }
-
-/* .comment-link {
-  font-size: 1rem;
-  color: #646cff;
-  text-decoration: none;
-  margin-top: 1rem;
-}
-
-.comment-link:hover {
-  text-decoration: underline;
-} */
 
