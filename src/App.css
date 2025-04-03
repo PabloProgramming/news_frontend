@@ -125,32 +125,6 @@ li:hover {
   cursor: pointer;
 }
 
-.error-container {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.error-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #ff4c4c;
-}
-
-.error-msg {
-  color: #d32f2f;
-  background-color: #ffebee;
-  padding: 1rem;
-  border: 1px solid #d32f2f;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-align: center;
-  margin: 1rem auto;
-  width: fit-content;
-  max-width: 80%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
 .card {
   padding: 2em;
 }
@@ -467,9 +441,31 @@ li:hover {
   cursor: not-allowed;
 }
 
-.error-msg {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
+.error-container {
+  text-align: center;
+  padding: 50px;
 }
 
+.error-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #555;
+}
+
+.error-title:hover {
+  color: #d32f2f; ;
+}
+
+.error-msg {
+  font-size: 18px;
+  color: #666;
+}
+
+.error-msg a {
+  color: #646cff;
+  text-decoration: none;
+}
+
+.error-msg a:hover {
+  text-decoration: underline;
+}
