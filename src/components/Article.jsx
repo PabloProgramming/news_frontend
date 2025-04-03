@@ -25,10 +25,12 @@ export const Article = () => {
     }
   }, [article]);
 
-  const {votes, voteChanged, handleVote} = useVote(
-    article?.votes ?? 0,
-    article_id
-  );
+  const {
+    votes,
+    voteChanged,
+    handleVote,
+    userHasVoted,
+  } = useVote(article?.votes ?? 0, article_id);
 
   if (loading)
     return (
@@ -58,7 +60,7 @@ export const Article = () => {
           <div className="vote-button-wrapper">
             <button
               onClick={() => handleVote("upvote")}
-              className="vote-btn-up">
+               className={`vote-btn-up ${userHasVoted ? "voted" : ""}`}>
               <FontAwesomeIcon icon={faThumbsUp} />
             </button>
           </div>

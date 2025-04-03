@@ -1,12 +1,34 @@
-import {Link} from "react-router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
-import {faThumbsDown} from "@fortawesome/free-regular-svg-icons";
-import { useVote } from "../hooks/useVote";
+import {faThumbsUp, faThumbsDown} from "@fortawesome/free-regular-svg-icons";
+import {faTrashCan} from "@fortawesome/free-regular-svg-icons";
+import {useVote} from "../hooks/useVote";
+import {useContext, useState} from "react";
+import {ClipLoader} from "react-spinners";
+import {UserContext} from "../contexts/UserContex";
+import {deleteCommentByCommentId} from "../api.js";
 
-export const CommentCard = ({comment}) => {
-    const {votes, voteChanged, handleVote} = useVote(comment.votes)
-    
+export const CommentCard = ({comment, deleteComment, setCommentCount}) => {
+  const {user} = useContext(UserContext);
+
+  const {votes, voteChanged, handleVote} = useVote(comment.votes);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleDeleteComment = async (e) => {
+    e.preventDefault();
+    setIsDeleting(true);
+    setError(null);
+    try {
+      await deleteCommentByCommentId(comment.comment_id);
+      deleteComment(comment.comment_id);
+      setCommentCount((prevCount) => prevCount - 1);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <li className="comment-card">
       <div className="comment-header">
@@ -23,26 +45,25 @@ export const CommentCard = ({comment}) => {
           className="vote-btn-down">
           <FontAwesomeIcon icon={faThumbsDown} />
         </button>
+        {comment.author === user.username ? (
+          <div className="comment-delete">
+            <button onClick={handleDeleteComment} disabled={isDeleting}>
+              {isDeleting ? (
+                <ClipLoader color="#fff" size={20} />
+              ) : (
+                <FontAwesomeIcon icon={faTrashCan} />
+              )}
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
         <span className={`comment-votes ${voteChanged ? "changed" : ""}`}>
           {votes} votes
         </span>
       </div>
-      {/* <Link to={`/comments/${comment.comment_id}`} className="comment-link">
-        View full comment
-      </Link> */}
+      {error && <p className="error-msg">{error}</p>}
     </li>
   );
 };
-
-
-
-
-
-
-
-
-
-
-
-
 

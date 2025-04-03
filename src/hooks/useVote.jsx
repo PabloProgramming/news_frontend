@@ -6,12 +6,22 @@ export const useVote = (initialVotes, article_id) => {
   const [voteChanged, setVoteChanged] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [userHasVoted, setUserHasVoted] = useState(false);
 
   useEffect(() => {
     setVotes(initialVotes);
+    const userVoteStatus = localStorage.getItem(`userVoted-${article_id}`);
+  if (userVoteStatus === "true") {
+    setUserHasVoted(true)
+  }
   }, [initialVotes, article_id]);
 
+ 
+
   const handleVote = async (type) => {
+    if (userHasVoted) {
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -26,6 +36,8 @@ export const useVote = (initialVotes, article_id) => {
         article_id
       );
       setVotes(updatedArticle.votes);
+      setUserHasVoted(true);
+      localStorage.setItem(`userVoted-${article_id}`, "true");
     } catch (err) {
       setVotes((currentVotes) => currentVotes - voteChange);
       setError(err.message);
@@ -34,6 +46,10 @@ export const useVote = (initialVotes, article_id) => {
     }
   };
 
-  return {handleVote, voteChanged, votes, loading, error};
+  return {handleVote, voteChanged, votes, loading, error, userHasVoted};
 };
+
+
+
+
 
