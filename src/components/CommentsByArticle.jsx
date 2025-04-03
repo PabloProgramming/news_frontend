@@ -5,6 +5,7 @@ import {getCommentsByArticleId} from "../api";
 import {useParams} from "react-router";
 import {AddComment} from "./AddComment";
 import {useEffect, useState} from "react";
+import {ErrorComponent} from "./ErrorComponent";
 
 export const CommentsByArticle = ({setCommentCount}) => {
   const {article_id} = useParams();
@@ -37,7 +38,7 @@ export const CommentsByArticle = ({setCommentCount}) => {
       </div>
     );
 
-  if (error) return <p className="error-msg">{error}</p>;
+  if (error) return <ErrorComponent message={error}/>;
 
   return (
     <section>
@@ -47,10 +48,7 @@ export const CommentsByArticle = ({setCommentCount}) => {
         setCommentCount={setCommentCount}
       />
       {comments.length === 0 ? (
-        <div className="error-container">
-          <h2 className="error-title">404 - No Comments Found</h2>
-          <p className="error-msg">This article does not have any comments.</p>
-        </div>
+        <ErrorComponent message="No comments found for this article." />
       ) : (
         <ul className="comments-list">
           {comments.map((comment, index) => (
@@ -66,6 +64,7 @@ export const CommentsByArticle = ({setCommentCount}) => {
     </section>
   );
 };
+
 
 
 

@@ -3,6 +3,7 @@ import {ClipLoader} from "react-spinners";
 import {useApiRequest} from "../hooks/useApiRequest";
 import {getArticles} from "../api";
 import {useParams, useSearchParams} from "react-router";
+import {ErrorComponent} from "./ErrorComponent";
 
 export const Articles = () => {
   const {slug} = useParams();
@@ -14,13 +15,13 @@ export const Articles = () => {
     error,
   } = useApiRequest(getArticles, slug, searchParams);
 
- const handleSortChange = (e) => {
-   setSearchParams((prevParams) => {
-     const newParams = new URLSearchParams(prevParams);
-     newParams.set("sort_by", e.target.value);
-     return newParams;
-   });
- };
+  const handleSortChange = (e) => {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams);
+      newParams.set("sort_by", e.target.value);
+      return newParams;
+    });
+  };
 
   const toggleOrder = () => {
     const newOrder = searchParams.get("order") === "asc" ? "desc" : "asc";
@@ -34,11 +35,10 @@ export const Articles = () => {
   const handleLimitChange = (e) => {
     setSearchParams((prevParams) => {
       const newParams = new URLSearchParams(prevParams);
-      newParams.set("limit", e.target.value); // Update limit query parameter
+      newParams.set("limit", e.target.value);
       return newParams;
     });
   };
-
 
   if (loading)
     return (
@@ -47,7 +47,7 @@ export const Articles = () => {
       </div>
     );
 
-  if (error) return <p className="error-msg">{error}</p>;
+  if (error) return <ErrorComponent message={error} />;
   return (
     <section>
       <div className="sort-controls">
@@ -80,9 +80,4 @@ export const Articles = () => {
     </section>
   );
 };
-
-
-
-
-
 

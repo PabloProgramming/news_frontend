@@ -2,6 +2,7 @@ import {ClipLoader} from "react-spinners";
 import {getTopics} from "../api";
 import {useApiRequest} from "../hooks/useApiRequest";
 import {TopicCard} from "./TopicCard";
+import {ErrorComponent} from "./ErrorComponent";
 
 export const Topics = () => {
   const {data: topics, error, loading} = useApiRequest(getTopics);
@@ -13,7 +14,7 @@ export const Topics = () => {
       </div>
     );
 
-  if (error) return <p className="error-msg">{error}</p>;
+  if (error) return <ErrorComponent message={error}/>;
   return (
     <ul>
       {topics.map((topic) => {

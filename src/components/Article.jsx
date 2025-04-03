@@ -6,7 +6,8 @@ import {CommentsByArticle} from "./CommentsByArticle";
 import {useVote} from "../hooks/useVote";
 import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import { ErrorComponent } from "./ErrorComponent";
 
 export const Article = () => {
   const {article_id} = useParams();
@@ -39,7 +40,7 @@ export const Article = () => {
       </div>
     );
 
-  if (error) return <p className="error-msg">{error}</p>;
+  if (error) return <ErrorComponent message={error}/>;
 
   return (
     <>

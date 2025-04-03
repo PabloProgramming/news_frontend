@@ -62,8 +62,9 @@ export const CommentCard = ({comment, deleteComment, setCommentCount}) => {
           {votes} votes
         </span>
       </div>
-      {error && <p className="error-msg">{error}</p>}
+      {error && <ErrorComponent message={error} />}
     </li>
   );
 };
+
 
