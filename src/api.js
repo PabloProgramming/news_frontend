@@ -29,6 +29,10 @@ export const postCommentByArticleId = async (article_id, username, body) => {
   return data.newComment;
 }
 
+export const deleteCommentByCommentId = async (comment_id) => {
+  await api.delete(`/comments/${comment_id}`);
+}
+
 // export const getUsers = () => {
 //   console.log("getUsers Called");
 //   return api.get("/users").then(({data: {users}}) => {
@@ -83,5 +87,6 @@ export const postCommentByArticleId = async (article_id, username, body) => {
 //     return item;
 //   });
 // };
+
 
 

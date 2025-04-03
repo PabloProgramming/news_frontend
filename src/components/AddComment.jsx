@@ -1,12 +1,11 @@
 import {useContext, useState} from "react";
 import {postCommentByArticleId} from "../api";
 import {ClipLoader} from "react-spinners";
-import { UserContext } from "../contexts/UserContex";
+import {UserContext} from "../contexts/UserContex";
 
-export const AddComment = ({ article_id, addNewComment, setCommentCount }) => {
-    
-    const { user } = useContext(UserContext)
-    
+export const AddComment = ({article_id, addNewComment, setCommentCount}) => {
+  const {user} = useContext(UserContext);
+
   const [newComment, setNewComment] = useState("");
   const [isPosting, setIsPosting] = useState(false);
   const [error, setError] = useState(null);

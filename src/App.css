@@ -303,25 +303,60 @@ li:hover {
   transition: color 0.3s ease, font-weight 0.3s ease;
 }
 
+/* Default unfilled button state (light grey) */
 .vote-btn-up,
 .vote-btn-down {
+  color: #ccc; /* Light grey */
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 2rem;
+}
+
+.vote-btn-up:hover,
+.vote-btn-down:hover {
+  color:  #646cff;
+}
+
+.vote-btn-up.voted,
+.vote-btn-down.voted {
   color: #646cff;
+}
+
+.vote-btn-up.voted:hover,
+.vote-btn-down.voted:hover {
+  color: #5a5fe0;
+
+}
+
+.vote-btn-up.voted,
+.vote-btn-down.voted {
+  cursor: not-allowed;
+}
+
+
+.comment-delete {
+  padding-left: 7.7rem;
+  align-content: center;
+  margin: auto;
+}
+
+.comment-delete button {
+  color: #333;
   background: none;
   border: none;
-  font-size: 1.5rem;
-  padding: 0.5rem rem;
+  font-size: 1.3rem;
+  padding: 0.5rem;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0.3s ease, transform 0.2s ease;
   margin-right: 1rem;
 }
 
-.vote-btn-down:hover {
+.comment-delete button:hover {
   color: #d32f2f;
   font-weight: bolder;
-}
-.vote-btn-up:hover {
-  color: #2e8b57;
-  font-weight: bolder;
+  transform: scale(1.1);
 }
 .comment-input,
 .comment-textarea {
