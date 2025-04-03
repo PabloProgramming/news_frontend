@@ -4,9 +4,10 @@ const api = axios.create({
   baseURL: "https://news-backend-vtec.onrender.com/api",
 });
 
-export const getArticles = async () => {
-    const { data } = await api.get("/articles");
-    return data.articles;
+export const getArticles = async (slug) => {
+  const endpoint = slug ? `/articles?topic=${slug}` : "/articles";
+  const {data} = await api.get(endpoint);
+  return data.articles;
 };
 
 export const getArticleById = async (article_id) => {
@@ -20,18 +21,26 @@ export const getCommentsByArticleId = async (article_id) => {
 };
 
 export const patchArticleVotesById = async (inc_votes, article_id) => {
-  const { data } = await api.patch(`/articles/${article_id}`, { inc_votes });
+  const {data} = await api.patch(`/articles/${article_id}`, {inc_votes});
   return data.updatedArticle;
-}
+};
 
 export const postCommentByArticleId = async (article_id, username, body) => {
-  const { data } = await api.post(`/articles/${article_id}/comments`, { username, body });
+  const {data} = await api.post(`/articles/${article_id}/comments`, {
+    username,
+    body,
+  });
   return data.newComment;
-}
+};
 
 export const deleteCommentByCommentId = async (comment_id) => {
   await api.delete(`/comments/${comment_id}`);
-}
+};
+
+export const getTopics = async () => {
+  const {data} = await api.get(`/topics`);
+  return data.topics;
+};
 
 // export const getUsers = () => {
 //   console.log("getUsers Called");
@@ -87,6 +96,4 @@ export const deleteCommentByCommentId = async (comment_id) => {
 //     return item;
 //   });
 // };
-
-
 

@@ -2,9 +2,11 @@ import {ArticleCard} from "./ArticleCard";
 import {ClipLoader} from "react-spinners";
 import {useApiRequest} from "../hooks/useApiRequest";
 import {getArticles} from "../api";
+import {useParams} from "react-router";
 
 export const Articles = () => {
-  const {data: articles, loading, error} = useApiRequest(getArticles);
+  const {slug} = useParams();
+  const {data: articles, loading, error} = useApiRequest(getArticles, slug);
 
   if (loading)
     return (
