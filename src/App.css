@@ -91,7 +91,6 @@ li {
   display: flex;
   flex-direction: column;
 }
-
 li:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
@@ -158,6 +157,11 @@ li:hover {
 
 .read-the-docs {
   color: #888;
+}
+
+.topic-description {
+  color: #666;
+  padding-left: 1rem;
 }
 
 .article-container {
@@ -316,7 +320,7 @@ li:hover {
 
 .vote-btn-up:hover,
 .vote-btn-down:hover {
-  color:  #646cff;
+  color: #646cff;
 }
 
 .vote-btn-up.voted,
@@ -327,14 +331,12 @@ li:hover {
 .vote-btn-up.voted:hover,
 .vote-btn-down.voted:hover {
   color: #5a5fe0;
-
 }
 
 .vote-btn-up.voted,
 .vote-btn-down.voted {
   cursor: not-allowed;
 }
-
 
 .comment-delete {
   padding-left: 7.7rem;
