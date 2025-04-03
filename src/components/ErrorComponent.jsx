@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const ErrorComponent = ({ message, duration = 1000 }) => {
+export const ErrorComponent = ({ message, duration = 5000 }) => {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export const ErrorComponent = ({ message, duration = 1000 }) => {
   return (
     <div className="error-container">
       <p className="error-msg">
-        <strong>Error:</strong> {message}
+        <strong>Error: </strong> {message}
       </p>
     </div>
   );

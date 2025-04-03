@@ -179,7 +179,6 @@ li:hover {
   outline: none;
 }
 
-
 @media (max-width: 768px) {
   .sort-controls {
     flex-wrap: wrap;
@@ -453,12 +452,16 @@ li:hover {
 }
 
 .error-title:hover {
-  color: #d32f2f; ;
+  color: #d32f2f;
 }
 
 .error-msg {
   font-size: 18px;
   color: #666;
+}
+
+.error-msg:hover {
+  color: #d32f2f;
 }
 
 .error-msg a {
@@ -469,3 +472,4 @@ li:hover {
 .error-msg a:hover {
   text-decoration: underline;
 }
+
