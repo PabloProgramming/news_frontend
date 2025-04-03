@@ -4,9 +4,10 @@ const api = axios.create({
   baseURL: "https://news-backend-vtec.onrender.com/api",
 });
 
-export const getArticles = async (slug) => {
-  const endpoint = slug ? `/articles?topic=${slug}` : "/articles";
-  const {data} = await api.get(endpoint);
+export const getArticles = async (slug, searchParams) => {
+  const params = new URLSearchParams(searchParams)
+  if (slug) params.set("topic", slug)
+  const {data} = await api.get(`/articles?${params.toString()}`);
   return data.articles;
 };
 
