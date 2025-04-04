@@ -7,7 +7,10 @@ export const TopicCard = ({topic}) => {
         {topic.img_url ? (
           <img src={topic.img_url} alt={`image of ${topic.slug}`} />
         ) : (
-          <img src="../../public/topic_feature.jpg" alt="topic default image" />
+          <img
+            src="https://www.adexchanger.com/wp-content/uploads/2022/01/topic_feature.jpg"
+            alt="topic default image"
+          />
         )}
         <h2>{topic.slug}</h2>
         <p className="topic-description">{topic.description}</p>
@@ -15,4 +18,5 @@ export const TopicCard = ({topic}) => {
     </li>
   );
 };
+
 
