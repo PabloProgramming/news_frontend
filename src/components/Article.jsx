@@ -1,13 +1,13 @@
 import {useParams} from "react-router";
-import {getArticleById} from "../api";
+import {getArticleById, patchArticleVotesById} from "../api";
 import {ClipLoader} from "react-spinners";
 import {useApiRequest} from "../hooks/useApiRequest";
 import {CommentsByArticle} from "./CommentsByArticle";
 import {useVote} from "../hooks/useVote";
 import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import { ErrorComponent } from "./ErrorComponent";
+import {useEffect, useState} from "react";
+import {ErrorComponent} from "./ErrorComponent";
 
 export const Article = () => {
   const {article_id} = useParams();
@@ -26,12 +26,11 @@ export const Article = () => {
     }
   }, [article]);
 
-  const {
-    votes,
-    voteChanged,
-    handleVote,
-    userHasVoted,
-  } = useVote(article?.votes ?? 0, article_id);
+  const {votes, voteChanged, handleVote, lastVote} = useVote(
+    article?.votes ?? 0,
+    article_id,
+    patchArticleVotesById
+  );
 
   if (loading)
     return (
@@ -40,7 +39,7 @@ export const Article = () => {
       </div>
     );
 
-  if (error) return <ErrorComponent message={error}/>;
+  if (error) return <ErrorComponent message={error} />;
 
   return (
     <>
@@ -61,7 +60,7 @@ export const Article = () => {
           <div className="vote-button-wrapper">
             <button
               onClick={() => handleVote("upvote")}
-               className={`vote-btn-up ${userHasVoted ? "voted" : ""}`}>
+              className={`vote-btn-up ${lastVote ? "voted" : ""}`}>
               <FontAwesomeIcon icon={faThumbsUp} />
             </button>
           </div>

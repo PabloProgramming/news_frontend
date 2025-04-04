@@ -7,9 +7,12 @@
 
 header {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
   margin-bottom: 2rem;
 }
 
@@ -28,7 +31,7 @@ nav {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 nav p {
@@ -87,7 +90,7 @@ li {
   transition: all 0.3s ease;
   width: 100%;
   max-width: 300px;
-  margin: 1rem;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
 }
@@ -270,7 +273,6 @@ li:hover {
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  padding: 1.5rem;
   transition: all 0.3s ease;
   margin-bottom: 1.5rem;
   max-width: 800px;
@@ -406,7 +408,7 @@ li:hover {
   padding: 1.5rem;
   width: 100%;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2rem auto;
 }
 
 .comment-textarea {
@@ -471,5 +473,41 @@ li:hover {
 
 .error-msg a:hover {
   text-decoration: underline;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-3px);
+}
+
+.user-avatar-card {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 2px solid #eee;
+}
+
+.user-info-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.user-info-card p {
+  margin: 0;
+  color: #777;
+  font-size: 0.95rem;
 }
 

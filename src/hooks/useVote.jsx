@@ -1,55 +1,56 @@
 import {useEffect, useState} from "react";
-import {patchArticleVotesById} from "../api";
 
-export const useVote = (initialVotes, article_id) => {
+export const useVote = (
+  initialVotes,
+  id,
+  patchFunction,
+  storageKeyPrefix = "userVoted"
+) => {
   const [votes, setVotes] = useState(initialVotes);
   const [voteChanged, setVoteChanged] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [userHasVoted, setUserHasVoted] = useState(false);
+  const [lastVote, setLastVote] = useState(null);
+
+  const storageKey = `${storageKeyPrefix}-${id}`;
 
   useEffect(() => {
     setVotes(initialVotes);
-    const userVoteStatus = localStorage.getItem(`userVoted-${article_id}`);
-  if (userVoteStatus === "true") {
-    setUserHasVoted(true)
-  }
-  }, [initialVotes, article_id]);
-
- 
+    const storedVote = localStorage.getItem(storageKey);
+    if (storedVote === "upvote" || storedVote === "downvote") {
+      setLastVote(storedVote);
+    }
+  }, [initialVotes, id, storageKey]);
 
   const handleVote = async (type) => {
-    if (userHasVoted) {
-      return;
-    }
-    setLoading(true);
-    setError(null);
+    if (type === lastVote) return;
 
-    const voteChange = type === "upvote" ? 1 : -1;
-    setVotes((currentVotes) => currentVotes + voteChange);
+    let voteChange = 0;
+
+    if (type === "upvote") {
+      voteChange = lastVote === "downvote" ? 1 : 1;
+    } else if (type === "downvote") {
+      voteChange = lastVote === "upvote" ? -1 : -1;
+    }
+
+    setVotes((curr) => curr + voteChange);
     setVoteChanged(true);
     setTimeout(() => setVoteChanged(false), 500);
 
     try {
-      const updatedArticle = await patchArticleVotesById(
-        voteChange,
-        article_id
-      );
-      setVotes(updatedArticle.votes);
-      setUserHasVoted(true);
-      localStorage.setItem(`userVoted-${article_id}`, "true");
+      setLoading(true);
+      const updated = await patchFunction(voteChange, id);
+      setVotes(updated.votes);
+      setLastVote(type);
+      localStorage.setItem(storageKey, type);
     } catch (err) {
-      setVotes((currentVotes) => currentVotes - voteChange);
+      setVotes((curr) => curr - voteChange); // Rollback
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  return {handleVote, voteChanged, votes, loading, error, userHasVoted};
+  return {handleVote, voteChanged, votes, loading, error, lastVote};
 };
-
-
-
-
 

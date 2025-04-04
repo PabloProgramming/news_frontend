@@ -5,12 +5,17 @@ import {useVote} from "../hooks/useVote";
 import {useContext, useState} from "react";
 import {ClipLoader} from "react-spinners";
 import {UserContext} from "../contexts/UserContex";
-import {deleteCommentByCommentId} from "../api.js";
+import {deleteCommentByCommentId, patchCommentVotesById} from "../api.js";
 
 export const CommentCard = ({comment, deleteComment, setCommentCount}) => {
   const {user} = useContext(UserContext);
 
-  const {votes, voteChanged, handleVote} = useVote(comment.votes);
+  const {votes, voteChanged, handleVote, lastVote} = useVote(
+    comment.votes,
+    comment.comment_id,
+    patchCommentVotesById,
+    "userVotedComment"
+  );
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -37,12 +42,15 @@ export const CommentCard = ({comment, deleteComment, setCommentCount}) => {
       </div>
       <p className="comment-body">{comment.body}</p>
       <div className="comment-footer">
-        <button onClick={() => handleVote("upvote")} className="vote-btn-up">
+        <button
+          onClick={() => handleVote("upvote")}
+          className={`vote-btn-up ${lastVote === "upvote" ? "voted" : ""}`}>
           <FontAwesomeIcon icon={faThumbsUp} />
         </button>
+
         <button
           onClick={() => handleVote("downvote")}
-          className="vote-btn-down">
+          className={`vote-btn-down ${lastVote === "downvote" ? "voted" : ""}`}>
           <FontAwesomeIcon icon={faThumbsDown} />
         </button>
         {comment.author === user.username ? (
@@ -66,5 +74,8 @@ export const CommentCard = ({comment, deleteComment, setCommentCount}) => {
     </li>
   );
 };
+
+
+
 
 
